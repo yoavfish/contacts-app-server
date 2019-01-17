@@ -6,8 +6,9 @@ const contactRouter = express.Router()
 contactRouter
     .get('/', (req,res) => {
         const searchText = req.query.searchText
+        const sort = req.query.sortType && req.query.sortDirection ? {[req.query.sortType] : req.query.sortDirection} : {'name.first': 1}
         const paginationOptions = {
-            sort: { 'name.first': 1},
+            sort,
             offset: (req.query.page) * 10, 
             limit: 10
           };
