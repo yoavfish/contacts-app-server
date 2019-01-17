@@ -6,6 +6,12 @@ const contactRouter = express.Router()
 contactRouter
     .get('/', (req,res) => {
         const searchText = req.query.searchText
+        const paginationOptions = {
+            sort: { 'name.first': 1},
+            offset: (req.query.page) * 10, 
+            limit: 10
+          };
+
         let queryObj = {}
 
         if(searchText) {
@@ -18,12 +24,12 @@ contactRouter
             ]}
         }
 
-        Contact.find(queryObj, (err, data) => {
-           if (err){
-               return res.status(400).json(err)
-           }
-           res.status(200).json(data)
-        })
+        Contact.paginate(queryObj, paginationOptions).then((data, err) => {
+            if (err){
+                return res.status(400).json(err)
+            }
+            res.status(200).json(data)
+         })
     })
 
 contactRouter

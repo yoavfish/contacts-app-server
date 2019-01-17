@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var mongoosePaginate = require('mongoose-paginate')
 
 const nameSchema = new mongoose.Schema({
   title: String,
@@ -30,5 +31,7 @@ const contactSchema = new mongoose.Schema({
   picture: [pictureSchema],
   createdOn: { type: Date, default: Date.now}
 })
+
+contactSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Contact', contactSchema)
