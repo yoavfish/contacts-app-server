@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/contacts', contactRouter)
 
-mongoose.connect('mongodb://localhost:27017/contacts', {useNewUrlParse: true})
+mongoose.connect('mongodb://contactsdbuser:OGdG9gmSNXNcBP8U@cluster0-shard-00-00-jfcg6.mongodb.net:27017/contacts?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', {useNewUrlParse: true})
 
 const db = mongoose.connection
 
