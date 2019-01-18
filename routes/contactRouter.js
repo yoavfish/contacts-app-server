@@ -35,7 +35,7 @@ contactRouter
 
 contactRouter
     .post('/', (req, res) => {
-        let contact = new Contact(req.body)
+        const contact = new Contact(req.body)
         contact.save((err, contact) => {
             if (err){
                 return res.status(400).json(err)
@@ -45,12 +45,23 @@ contactRouter
     })
 
 contactRouter 
+    .put('/:id', (req, res) => {
+        const contact = new Contact(req.body)
+        Contact.findByIdAndUpdate(req.params.id, contact, (err, data) => {
+            if (err){
+                return res.status(400).json(err)
+            }
+            res.status(200).json(data)
+        })
+    })
+
+contactRouter 
     .delete('/:id', (req, res) => {
         Contact.findByIdAndDelete(req.params.id, (err, data) => {
             if (err){
                 return res.status(400).json(err)
             }
-            res.status(204).json(data)
+            res.status(200).json(data)
         })
     })
 
