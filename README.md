@@ -2,6 +2,10 @@
 
 A complete, yet simple, Contact app server written in NodeJS, Express, MongoDB.
 
+### MongoDB
+
+A MongoDB cluster is Seeded with contacts data and in cloud (MongoDB Atlas hosted on AWS)
+
 ### Quick start
 
 ```bash
