@@ -3,15 +3,15 @@ const ContactsController = require('../controllers/contacts')
 const contactRouter = express.Router()
 
 contactRouter
-    .get('/', ContactsController.get_contacts)
+    .get('/', ContactsController.getContacts)
 
 contactRouter
-    .post('/', ContactsController.create_contact)
+    .post('/', ContactsController.createContact)
 
 contactRouter 
-    .put('/:id', ContactsController.update_contact)
+    .put('/:id', ContactsController.updateContact)
 
 contactRouter 
-    .delete('/:id', ContactsController.delete_contact)
+    .delete('/:id', ContactsController.deleteContact)
 
-module.exports.contactRouter = contactRouter
+module.exports = contactRouter

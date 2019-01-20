@@ -3,6 +3,8 @@ var mongoosePaginate = require('mongoose-paginate')
 
 toLower = string => string.toLowerCase()
 
+/* The schema has more data than what we show on the client to support future enhancements */
+
 const nameSchema = new mongoose.Schema({
   title: { type: String, set: toLower } ,
   first: { type: String, set: toLower } ,

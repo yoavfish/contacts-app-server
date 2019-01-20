@@ -1,6 +1,6 @@
 const Contact = require('../models/contacts')
 
-exports.get_contacts = (req,res) => {
+exports.getContacts = (req,res) => {
   const searchText = req.query.searchText
   const sort = req.query.sortType && req.query.sortDirection ? {[req.query.sortType] : req.query.sortDirection} : {'name.first': 1}
   const paginationOptions = {
@@ -10,6 +10,8 @@ exports.get_contacts = (req,res) => {
     };
 
   let queryObj = {}
+
+/* Search text will search for a regex match in all the fields we show the client (first and last name, cellphone and street)  */
 
   if(searchText) {
       const searchObj = {$regex: searchText, $options: 'i'}
@@ -21,7 +23,8 @@ exports.get_contacts = (req,res) => {
       ]}
   }
 
-  Contact.paginate(queryObj, paginationOptions).then((data, err) => {
+  Contact.paginate(queryObj, paginationOptions).then(
+      (data, err) => {
       if (err){
           return res.status(400).json(err)
       }
@@ -29,17 +32,17 @@ exports.get_contacts = (req,res) => {
    })
 }
 
-exports.create_contact = (req, res) => {
+exports.createContact = (req, res) => {
   const contact = new Contact(req.body)
-  contact.save((err, contact) => {
+  contact.save((err, data) => {
       if (err){
           return res.status(400).json(err)
       }
-      res.status(200).json(contact)
+      res.status(200).json(data)
   })
 }
 
-exports.update_contact = (req, res) => {
+exports.updateContact = (req, res) => {
   const contact = new Contact(req.body)
   Contact.findByIdAndUpdate(req.params.id, contact, (err, data) => {
       if (err){
@@ -49,7 +52,7 @@ exports.update_contact = (req, res) => {
   })
 }
 
-exports.delete_contact = (req, res) => {
+exports.deleteContact = (req, res) => {
   Contact.findByIdAndDelete(req.params.id, (err, data) => {
       if (err){
           return res.status(400).json(err)
